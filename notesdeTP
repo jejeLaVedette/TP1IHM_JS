@@ -1,0 +1,5 @@
+M = E.getCTM(); // Current Transformation Matrix
+		// Matrice de transformation
+M*M^-1 = M^-1*M = Matrice identité
+Soit P le point de contact quand on appuis sur E, tq P = (x, y, 1) exprimé relativement au canvas
+M^-1*P = P.matrixTransform(M.inverse())=(x',y',1) exprimé relativement à E
