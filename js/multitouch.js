@@ -40,8 +40,8 @@ ElemendDeTouchid[touch.identifier] = ElementSVG;
             var newP = SVGRoot.createSVGPoint();
             newP.x = touch.pageX;
             newP.y = touch.pageY;
-            newP = matrixTransforme(elem.getCTM().inverse());
-            stockPointElem[id] = {coordonnees : newP, elemAsso : elem};                        
+            newP = newP.matrixTransform(elem.getCTM().inverse());
+            StockPointElem[id] = {coordonnees : newP, elemAsso : elem};                        
         }
             
     } 
@@ -49,15 +49,15 @@ ElemendDeTouchid[touch.identifier] = ElementSVG;
             var L = e.changedTouches;
             for(var i = 0; i < L.length; i++){
                 var pts = L.item(i);   
-                var obj = SVGRoot.querySelector("#"+pts.target.id);
+                var obj = StockPointElem[L.item(i).identifier].elemAsso;
                 console.log("touchmove");
                 var point = SVGRoot.createSVGPoint();
                 point.x = pts.pageX; 
                 point.y = pts.pageY;
                 var m2 = point.matrixTransform(obj.getCTM().inverse());
-                var pointRoot;
+                var pointRoot = StockPointElem[L.item(i).identifier].coordonnees;
                 // console.log(m2);
-                obj.setAttribute('transform', 'translate('+(m2.x+pointRoot.x)+','+(m2.y+pointRoot.y)+')');
+                obj.setAttribute('transform', 'translate('+(m2.x-pointRoot.x)+','+(m2.y-pointRoot.y)+')');
             }
     }
 	
